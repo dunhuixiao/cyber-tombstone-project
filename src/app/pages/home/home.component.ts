@@ -4,12 +4,11 @@ import { PetDataService } from '../../services/pet-data.service';
 import { ThemeService } from '../../services/theme.service';
 import { PetProfile } from '../../models/pet.model';
 import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.component';
-import { PixelPetBorderComponent } from '../../components/pixel-pet-border/pixel-pet-border.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ParticleBgComponent, PixelPetBorderComponent],
+  imports: [ParticleBgComponent],
   template: `
     <app-particle-bg color1="#FFB87A" color2="#FFD4A8" />
 
@@ -65,13 +64,6 @@ import { PixelPetBorderComponent } from '../../components/pixel-pet-border/pixel
                     [style.border-color]="getThemeColor(pet).c1">
                     <img [src]="pet.pixelAvatar" [alt]="pet.name" class="card-avatar pixel-art" />
                   </div>
-                  <!-- Pixel pet sprite border -->
-                  @if (pet.pixelSprite) {
-                    <app-pixel-pet-border
-                      [spriteUrl]="pet.pixelSprite"
-                      [species]="pet.species"
-                    />
-                  }
                   <div class="card-theme-badge"
                     [style.background]="'linear-gradient(135deg, ' + getThemeColor(pet).c1 + ', ' + getThemeColor(pet).c2 + ')'">
                     {{ getThemeEmoji(pet) }}
@@ -113,7 +105,7 @@ import { PixelPetBorderComponent } from '../../components/pixel-pet-border/pixel
           <span class="pixel-flower">\u2740</span>
         </div>
         <p class="footer-text">\u8D5B\u535A\u5893\u7891\uD83E\uDEA6 \u2014 \u7528\u6E29\u6696\u7684\u50CF\u7D20\u94ED\u8BB0\u7231\u4E0E\u966A\u4F34</p>
-        <p class="footer-copy">Pixel Memorial \u00A9 2025</p>
+        <p class="footer-copy">\u00A9 2026 - present Sora</p>
       </footer>
     </div>
   `,
