@@ -1,4 +1,4 @@
-import { Component, signal, OnDestroy } from '@angular/core';
+import { Component, Input, signal, OnDestroy } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -7,7 +7,7 @@ import { NgClass } from '@angular/common';
   imports: [NgClass],
   template: `
     <div class="music-player" [ngClass]="{ 'is-playing': isPlaying() }">
-      <button class="music-btn" (click)="togglePlay()" [attr.aria-label]="isPlaying() ? '暂停音乐' : '播放音乐'">
+      <button class="music-btn" (click)="togglePlay()" [attr.aria-label]="isPlaying() ? '\u6682\u505C\u97F3\u4E50' : '\u64AD\u653E\u97F3\u4E50'">
         <div class="music-visualizer">
           <span class="bar" [ngClass]="{ 'animate': isPlaying() }"></span>
           <span class="bar" [ngClass]="{ 'animate': isPlaying() }" style="animation-delay: 0.2s"></span>
@@ -16,8 +16,8 @@ import { NgClass } from '@angular/common';
         </div>
       </button>
       <div class="music-info" [ngClass]="{ 'show': showInfo() }">
-        <span class="music-title">{{ musicTitle() }}</span>
-        <span class="music-status">{{ isPlaying() ? '正在播放' : '已暂停' }}</span>
+        <span class="music-title">\uD83C\uDFB5 {{ musicTitle() }}</span>
+        <span class="music-status">{{ isPlaying() ? '\u6B63\u5728\u64AD\u653E' : '\u5DF2\u6682\u505C' }}</span>
       </div>
     </div>
   `,
@@ -36,8 +36,8 @@ import { NgClass } from '@angular/common';
     .music-btn {
       width: 48px;
       height: 48px;
-      border-radius: var(--radius-full);
-      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      border: 2px solid var(--border-subtle);
       background: var(--glass-bg);
       backdrop-filter: var(--glass-blur);
       -webkit-backdrop-filter: var(--glass-blur);
@@ -46,12 +46,13 @@ import { NgClass } from '@angular/common';
       align-items: center;
       justify-content: center;
       transition: var(--transition-smooth);
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--shadow-pixel), var(--shadow-sm);
     }
 
     .music-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: var(--shadow-glow-sm);
+      background: var(--theme-gradient-soft);
+      border-color: var(--theme-color-1);
+      box-shadow: var(--shadow-pixel), var(--shadow-glow-sm);
       transform: scale(1.05);
     }
 
@@ -63,9 +64,9 @@ import { NgClass } from '@angular/common';
     }
 
     .bar {
-      width: 3px;
+      width: 4px;
       height: 6px;
-      background: var(--theme-color-1);
+      background: var(--theme-gradient);
       border-radius: 2px;
       transition: height 0.2s ease;
     }
@@ -78,8 +79,8 @@ import { NgClass } from '@angular/common';
       background: var(--glass-bg);
       backdrop-filter: var(--glass-blur);
       -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
       padding: var(--space-2) var(--space-4);
       display: flex;
       flex-direction: column;
@@ -87,6 +88,7 @@ import { NgClass } from '@angular/common';
       transform: translateX(10px);
       transition: var(--transition-smooth);
       pointer-events: none;
+      box-shadow: var(--shadow-sm);
     }
 
     .music-info.show {
@@ -99,6 +101,7 @@ import { NgClass } from '@angular/common';
       font-size: var(--text-sm);
       color: var(--text-primary);
       white-space: nowrap;
+      font-family: var(--font-display);
     }
 
     .music-status {
@@ -113,26 +116,30 @@ import { NgClass } from '@angular/common';
   `]
 })
 export class MusicPlayerComponent implements OnDestroy {
+  /** Path to the local audio file, e.g. 'images/pets/wangcai/bgm.wav' */
+  @Input() musicSrc = '';
+
   isPlaying = signal(false);
   showInfo = signal(false);
-  musicTitle = signal('纪念曲');
+  musicTitle = signal('\u7EAA\u5FF5\u66F2');
 
   private audio: HTMLAudioElement | null = null;
   private hideTimeout: ReturnType<typeof setTimeout> | null = null;
 
   togglePlay(): void {
     if (!this.audio) {
-      // Use a royalty-free ambient music URL or create a silent placeholder
-      this.audio = new Audio();
-      // Generate a soft ambient tone using AudioContext as placeholder
-      this.createAmbientTone();
+      this.audio = new Audio(this.musicSrc);
+      this.audio.loop = true;
+      this.audio.volume = 0.5;
     }
 
     if (this.isPlaying()) {
-      this.audio?.pause();
+      this.audio.pause();
       this.isPlaying.set(false);
     } else {
-      this.audioCtx?.resume();
+      this.audio.play().catch(() => {
+        // Autoplay blocked by browser, ignore silently
+      });
       this.isPlaying.set(true);
     }
 
@@ -141,46 +148,9 @@ export class MusicPlayerComponent implements OnDestroy {
     this.hideTimeout = setTimeout(() => this.showInfo.set(false), 3000);
   }
 
-  private audioCtx: AudioContext | null = null;
-  private gainNode: GainNode | null = null;
-
-  private createAmbientTone(): void {
-    this.audioCtx = new AudioContext();
-    const ctx = this.audioCtx;
-
-    // Create a peaceful ambient chord
-    const frequencies = [261.63, 329.63, 392.00, 523.25]; // C major chord
-    this.gainNode = ctx.createGain();
-    this.gainNode.gain.value = 0.03; // Very quiet
-    this.gainNode.connect(ctx.destination);
-
-    for (const freq of frequencies) {
-      const osc = ctx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.value = freq;
-
-      const oscGain = ctx.createGain();
-      oscGain.gain.value = 0.25;
-
-      // Add slow tremolo
-      const lfo = ctx.createOscillator();
-      lfo.type = 'sine';
-      lfo.frequency.value = 0.2 + Math.random() * 0.3;
-      const lfoGain = ctx.createGain();
-      lfoGain.gain.value = 0.1;
-      lfo.connect(lfoGain);
-      lfoGain.connect(oscGain.gain);
-      lfo.start();
-
-      osc.connect(oscGain);
-      oscGain.connect(this.gainNode);
-      osc.start();
-    }
-  }
-
   ngOnDestroy(): void {
     this.audio?.pause();
-    this.audioCtx?.close();
+    this.audio = null;
     if (this.hideTimeout) clearTimeout(this.hideTimeout);
   }
 }

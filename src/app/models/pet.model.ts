@@ -27,6 +27,14 @@ export interface ThemeTemplate {
   icon: string;
 }
 
+export interface PetTitle {
+  templeName: string;        // 庙号
+  templeNameNote: string;    // 庙号释义
+  posthumousName: string;    // 谥号
+  posthumousNameNote: string;// 谥号释义
+  fullTitle: string;         // 全称
+}
+
 export interface PetProfile {
   id: string;
   name: string;
@@ -36,6 +44,11 @@ export interface PetProfile {
   birthDate: string;
   deathDate: string;
   avatar: string;
+  pixelAvatar: string;
+  /** Pixel sprite image for avatar border (desktop pet style) */
+  pixelSprite?: string;
+  /** Pixel running sprite for detail page animation */
+  pixelRunning?: string;
   photos: PetPhoto[];
   videos: PetVideo[];
   bio: string;
@@ -44,4 +57,5 @@ export interface PetProfile {
   ownerMessage: string;
   theme: ThemeId;
   backgroundMusic?: string;
+  title?: PetTitle;
 }

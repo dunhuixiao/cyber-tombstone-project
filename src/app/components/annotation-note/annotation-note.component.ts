@@ -14,7 +14,7 @@ import { Component, Input } from '@angular/core';
       position: absolute;
       z-index: 10;
       max-width: 200px;
-      animation: fadeIn 0.5s ease-out;
+      animation: noteIn 0.5s ease-out;
     }
 
     .annotation-note.pos-top-left { top: -10px; left: -20px; }
@@ -25,30 +25,32 @@ import { Component, Input } from '@angular/core';
     .note-tape {
       width: 40px;
       height: 12px;
-      background: rgba(255, 200, 100, 0.6);
-      border-radius: 2px;
+      background: linear-gradient(135deg, var(--theme-color-1), var(--theme-color-2));
+      border-radius: 3px;
       margin: 0 auto var(--space-1);
+      opacity: 0.7;
     }
 
     .note-content {
-      background: rgba(255, 248, 220, 0.92);
-      color: #4a3728;
+      background: rgba(255, 252, 240, 0.95);
+      color: #5C4033;
       padding: var(--space-3) var(--space-3);
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-lg);
       font-size: var(--text-sm);
       font-family: var(--font-body);
       line-height: 1.6;
-      box-shadow: 2px 3px 15px rgba(0, 0, 0, 0.25);
+      box-shadow: var(--shadow-pixel), 2px 3px 12px rgba(180, 140, 100, 0.2);
+      border: 1.5px solid rgba(180, 140, 100, 0.15);
       transition: var(--transition-smooth);
     }
 
     .annotation-note:hover .note-content {
       transform: scale(1.03);
-      box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.35);
+      box-shadow: var(--shadow-pixel), 3px 5px 16px rgba(180, 140, 100, 0.3);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+    @keyframes noteIn {
+      from { opacity: 0; transform: translateY(10px) rotate(0deg); }
       to { opacity: 1; transform: translateY(0); }
     }
   `]

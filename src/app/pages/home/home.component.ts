@@ -4,71 +4,101 @@ import { PetDataService } from '../../services/pet-data.service';
 import { ThemeService } from '../../services/theme.service';
 import { PetProfile } from '../../models/pet.model';
 import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.component';
+import { PixelPetBorderComponent } from '../../components/pixel-pet-border/pixel-pet-border.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ParticleBgComponent],
+  imports: [ParticleBgComponent, PixelPetBorderComponent],
   template: `
-    <app-particle-bg color1="#00D4FF" color2="#7B2FBE" />
+    <app-particle-bg color1="#FFB87A" color2="#FFD4A8" />
 
     <div class="home-container">
-      <!-- Header -->
+      <!-- Header / Welcome Module -->
       <header class="home-header">
-        <div class="logo-section">
-          <div class="logo-glow"></div>
-          <h1 class="site-title">赛博纪念馆</h1>
-          <p class="site-subtitle">Cyber Memorial Hall</p>
+        <div class="header-decor-top">
+          <span class="pixel-star">\u2743</span>
+          <span class="pixel-star">\u2743</span>
+          <span class="pixel-star">\u2743</span>
         </div>
-        <p class="site-desc">在数字星空中，为挚爱的伙伴点亮一颗永恒的星</p>
+        <div class="logo-section">
+          <h1 class="site-title">\u8D5B\u535A\u5893\u7891\uD83E\uDEA6</h1>
+          <p class="site-subtitle">Pixel Memorial</p>
+        </div>
+        <p class="site-desc">\u5728\u50CF\u7D20\u4E16\u754C\u91CC\uFF0C\u6BCF\u4E00\u4E2A\u5C0F\u5C0F\u7684\u751F\u547D\u90FD\u503C\u5F97\u88AB\u6E29\u67D4\u5730\u8BB0\u4F4F</p>
+        <div class="header-decor-bottom">
+          <div class="decor-dash"></div>
+          <span class="decor-heart">\u2665</span>
+          <div class="decor-dash"></div>
+        </div>
       </header>
 
-      <!-- Hero Banner -->
+      <!-- Hero Banner (\u50CF\u7D20\u98CE) -->
       <div class="hero-banner">
-        <img src="images/hero-banner.png" alt="赛博纪念馆" class="hero-image" />
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <p class="hero-text">每一个生命都值得被铭记</p>
-          <p class="hero-subtext">Every life deserves to be remembered</p>
+        <div class="hero-frame">
+          <img src="images/hero-banner-pixel.png" alt="\u8D5B\u535A\u5893\u7891" class="hero-image pixel-art" />
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <p class="hero-text">\u6BCF\u4E00\u4E2A\u751F\u547D\u90FD\u503C\u5F97\u88AB\u94ED\u8BB0</p>
+            <p class="hero-subtext">Every life deserves to be remembered</p>
+          </div>
         </div>
       </div>
 
-      <!-- Pet Cards -->
+      <!-- Pet Cards Section -->
       <section class="pets-section">
-        <h2 class="section-heading">
-          <span class="heading-line"></span>
-          <span class="heading-text">纪念碑</span>
-          <span class="heading-line"></span>
-        </h2>
+        <div class="section-header">
+          <span class="section-icon">\uD83D\uDC3E</span>
+          <h2 class="section-heading">\u6211\u7684\u5C0F\u4F19\u4F34</h2>
+          <div class="section-line"></div>
+        </div>
 
         <div class="pets-grid">
           @for (pet of pets; track pet.id; let i = $index) {
             <div class="pet-card" [style.animation-delay]="(i * 0.2) + 's'" (click)="navigateToPet(pet)">
-              <div class="card-glow"
-                [style.background]="getGradient(pet)">
+              <div class="card-gradient-bg"
+                [style.background]="'linear-gradient(135deg, ' + getThemeColor(pet).c1 + '15, ' + getThemeColor(pet).c2 + '20)'">
               </div>
               <div class="card-content">
                 <div class="card-avatar-wrapper">
-                  <img [src]="pet.avatar" [alt]="pet.name" class="card-avatar" />
-                  <div class="card-avatar-ring"
-                    [style.background-image]="'linear-gradient(' + getThemeColor(pet).bg + ', ' + getThemeColor(pet).bg + '), linear-gradient(135deg, ' + getThemeColor(pet).c1 + ', ' + getThemeColor(pet).c2 + ')'">
+                  <div class="avatar-frame"
+                    [style.border-color]="getThemeColor(pet).c1">
+                    <img [src]="pet.pixelAvatar" [alt]="pet.name" class="card-avatar pixel-art" />
+                  </div>
+                  <!-- Pixel pet sprite border -->
+                  @if (pet.pixelSprite) {
+                    <app-pixel-pet-border
+                      [spriteUrl]="pet.pixelSprite"
+                      [species]="pet.species"
+                    />
+                  }
+                  <div class="card-theme-badge"
+                    [style.background]="'linear-gradient(135deg, ' + getThemeColor(pet).c1 + ', ' + getThemeColor(pet).c2 + ')'">
+                    {{ getThemeEmoji(pet) }}
                   </div>
                 </div>
                 <h3 class="card-name">{{ pet.name }}</h3>
-                <p class="card-breed">{{ pet.species }} · {{ pet.breed }}</p>
-                <p class="card-dates">{{ pet.birthDate }} — {{ pet.deathDate }}</p>
-                <div class="card-divider"
-                  [style.background]="'linear-gradient(90deg, transparent, ' + getThemeColor(pet).c1 + ', transparent)'">
+                <p class="card-breed">{{ pet.species }} \u00B7 {{ pet.breed }}</p>
+                <div class="card-date-badge"
+                  [style.background]="'linear-gradient(90deg, ' + getThemeColor(pet).c1 + '18, ' + getThemeColor(pet).c2 + '18)'">
+                  <span class="date-icon">\uD83C\uDF1F</span>
+                  <span class="date-text">{{ pet.birthDate }} \u2014 {{ pet.deathDate }}</span>
                 </div>
                 <p class="card-bio">{{ pet.bio.substring(0, 60) }}...</p>
-                <div class="card-enter">
-                  <span>进入纪念馆</span>
-                  <span class="arrow">→</span>
+                <div class="card-tags">
+                  @for (trait of pet.personality.slice(0, 3); track trait) {
+                    <span class="card-tag"
+                      [style.border-color]="getThemeColor(pet).c1 + '40'"
+                      [style.color]="getThemeColor(pet).c1">
+                      {{ trait }}
+                    </span>
+                  }
                 </div>
-              </div>
-              <div class="card-theme-badge"
-                [style.background]="'linear-gradient(135deg, ' + getThemeColor(pet).c1 + ', ' + getThemeColor(pet).c2 + ')'">
-                {{ getThemeEmoji(pet) }}
+                <div class="card-enter"
+                  [style.background]="'linear-gradient(135deg, ' + getThemeColor(pet).c1 + ', ' + getThemeColor(pet).c2 + ')'">
+                  <span>\u53BB\u770B\u770B TA</span>
+                  <span class="arrow">\u2192</span>
+                </div>
               </div>
             </div>
           }
@@ -77,13 +107,23 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
 
       <!-- Footer -->
       <footer class="home-footer">
-        <div class="footer-divider"></div>
-        <p class="footer-text">赛博纪念馆 — 用科技铭记爱与陪伴</p>
-        <p class="footer-copy">Cyber Memorial Hall © 2025</p>
+        <div class="footer-decor">
+          <span class="pixel-flower">\u2740</span>
+          <span class="pixel-flower">\u2740</span>
+          <span class="pixel-flower">\u2740</span>
+        </div>
+        <p class="footer-text">\u8D5B\u535A\u5893\u7891\uD83E\uDEA6 \u2014 \u7528\u6E29\u6696\u7684\u50CF\u7D20\u94ED\u8BB0\u7231\u4E0E\u966A\u4F34</p>
+        <p class="footer-copy">Pixel Memorial \u00A9 2025</p>
       </footer>
     </div>
   `,
   styles: [`
+    .pixel-art {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+
     .home-container {
       position: relative;
       z-index: 1;
@@ -100,33 +140,42 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
       animation: slideDown 0.8s ease-out;
     }
 
+    .header-decor-top {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+
+    .pixel-star {
+      color: var(--theme-color-1);
+      font-size: var(--text-lg);
+      animation: bounce-soft 2s ease-in-out infinite;
+    }
+    .pixel-star:nth-child(2) {
+      animation-delay: 0.3s;
+      color: var(--theme-color-2);
+    }
+    .pixel-star:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
     .logo-section {
       position: relative;
       display: inline-block;
       margin-bottom: var(--space-4);
     }
 
-    .logo-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 200px;
-      height: 60px;
-      background: var(--theme-gradient);
-      filter: blur(40px);
-      opacity: 0.3;
-    }
-
     .site-title {
       font-family: var(--font-display);
       font-size: var(--text-5xl);
-      font-weight: 700;
+      font-weight: 400;
       background: var(--theme-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       position: relative;
+      letter-spacing: 0.05em;
     }
 
     .site-subtitle {
@@ -135,27 +184,54 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
       letter-spacing: 0.3em;
       text-transform: uppercase;
       margin-top: var(--space-1);
+      font-family: var(--font-body);
     }
 
     .site-desc {
       font-size: var(--text-lg);
       color: var(--text-secondary);
       font-family: var(--font-display);
+      margin-bottom: var(--space-4);
+    }
+
+    .header-decor-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+    }
+
+    .decor-dash {
+      width: 60px;
+      height: 3px;
+      background: var(--theme-gradient);
+      border-radius: 3px;
+    }
+
+    .decor-heart {
+      color: var(--theme-color-1);
+      font-size: var(--text-lg);
+      animation: breathe 2s ease-in-out infinite;
     }
 
     /* Hero Banner */
     .hero-banner {
+      margin-bottom: var(--space-12);
+      animation: slideUp 0.8s ease-out;
+    }
+
+    .hero-frame {
       position: relative;
       border-radius: var(--radius-2xl);
       overflow: hidden;
-      margin-bottom: var(--space-16);
-      animation: slideUp 0.8s ease-out;
-      border: 1px solid var(--border-subtle);
+      border: 4px solid var(--border-medium);
+      box-shadow: var(--shadow-pixel), var(--shadow-md);
+      background: var(--bg-card);
     }
 
     .hero-image {
       width: 100%;
-      height: 340px;
+      height: 300px;
       object-fit: cover;
       display: block;
     }
@@ -164,29 +240,30 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        transparent 30%,
-        rgba(10, 10, 15, 0.7) 70%,
-        rgba(10, 10, 15, 0.95) 100%
+        transparent 40%,
+        rgba(255, 248, 240, 0.5) 70%,
+        rgba(255, 248, 240, 0.9) 100%
       );
     }
 
     .hero-content {
       position: absolute;
-      bottom: var(--space-8);
+      bottom: var(--space-6);
       left: var(--space-8);
     }
 
     .hero-text {
       font-family: var(--font-display);
       font-size: var(--text-3xl);
-      font-weight: 600;
+      font-weight: 400;
       color: var(--text-primary);
-      margin-bottom: var(--space-2);
+      margin-bottom: var(--space-1);
+      text-shadow: 0 2px 8px rgba(255, 248, 240, 0.8);
     }
 
     .hero-subtext {
-      font-size: var(--text-base);
-      color: var(--text-tertiary);
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
       letter-spacing: 0.1em;
     }
 
@@ -195,26 +272,35 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
       padding-bottom: var(--space-16);
     }
 
-    .section-heading {
+    .section-header {
       display: flex;
       align-items: center;
-      gap: var(--space-6);
-      margin-bottom: var(--space-12);
-      justify-content: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-10);
+      padding: var(--space-4) var(--space-6);
+      background: var(--bg-card);
+      border-radius: var(--radius-2xl);
+      border: 2px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
     }
 
-    .heading-line {
-      width: 60px;
-      height: 1px;
-      background: var(--border-medium);
+    .section-icon {
+      font-size: var(--text-2xl);
     }
 
-    .heading-text {
+    .section-heading {
       font-family: var(--font-display);
       font-size: var(--text-2xl);
-      color: var(--text-secondary);
+      color: var(--text-primary);
       font-weight: 400;
-      letter-spacing: 0.2em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 2px;
+      background: var(--theme-gradient);
+      border-radius: 2px;
+      opacity: 0.4;
     }
 
     .pets-grid {
@@ -225,33 +311,28 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
 
     .pet-card {
       position: relative;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      border: 3px solid var(--border-subtle);
       border-radius: var(--radius-2xl);
       overflow: hidden;
       cursor: pointer;
       transition: var(--transition-smooth);
       animation: slideUp 0.6s ease-out both;
+      box-shadow: var(--shadow-pixel), var(--shadow-sm);
+      backdrop-filter: var(--glass-blur);
     }
 
     .pet-card:hover {
       transform: translateY(-6px);
-      border-color: var(--border-medium);
+      border-color: var(--theme-color-1);
+      box-shadow: var(--shadow-pixel), var(--shadow-glow-sm), var(--shadow-md);
     }
 
-    .card-glow {
+    .card-gradient-bg {
       position: absolute;
-      top: -50%;
-      left: -20%;
-      width: 140%;
-      height: 100%;
-      opacity: 0;
-      filter: blur(60px);
+      inset: 0;
+      opacity: 1;
       transition: var(--transition-smooth);
-    }
-
-    .pet-card:hover .card-glow {
-      opacity: 0.12;
     }
 
     .card-content {
@@ -262,61 +343,95 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
 
     .card-avatar-wrapper {
       position: relative;
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       margin: 0 auto var(--space-6);
+    }
+
+    .avatar-frame {
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius-2xl);
+      border: 4px solid var(--theme-color-1);
+      overflow: hidden;
+      box-shadow: var(--shadow-pixel);
+      background: var(--bg-elevated);
     }
 
     .card-avatar {
       width: 100%;
       height: 100%;
-      border-radius: var(--radius-full);
       object-fit: cover;
-      position: relative;
-      z-index: 2;
     }
 
-    .card-avatar-ring {
+    .card-theme-badge {
       position: absolute;
-      inset: -4px;
-      border-radius: var(--radius-full);
-      border: 2px solid transparent;
-      background-origin: border-box;
-      background-clip: padding-box, border-box;
-      z-index: 1;
+      bottom: -6px;
+      right: -6px;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      border: 3px solid var(--bg-card);
+      box-shadow: var(--shadow-sm);
+      z-index: 5;
     }
 
     .card-name {
       font-family: var(--font-display);
       font-size: var(--text-2xl);
-      font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: var(--space-2);
+      margin-bottom: var(--space-1);
     }
 
     .card-breed {
       font-size: var(--text-sm);
       color: var(--text-tertiary);
-      margin-bottom: var(--space-1);
+      margin-bottom: var(--space-3);
     }
 
-    .card-dates {
-      font-size: var(--text-sm);
-      color: var(--text-tertiary);
-      font-family: var(--font-display);
+    .card-date-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-4);
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-4);
     }
 
-    .card-divider {
-      width: 60%;
-      height: 1px;
-      margin: var(--space-4) auto;
+    .date-icon { font-size: var(--text-sm); }
+
+    .date-text {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
     }
 
     .card-bio {
       font-size: var(--text-sm);
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.7;
+      margin-bottom: var(--space-4);
+    }
+
+    .card-tags {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
       margin-bottom: var(--space-6);
+    }
+
+    .card-tag {
+      font-size: var(--text-xs);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      border: 1.5px solid;
+      background: rgba(255, 255, 255, 0.5);
+      font-family: var(--font-body);
     }
 
     .card-enter {
@@ -324,12 +439,16 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
       align-items: center;
       gap: var(--space-2);
       font-size: var(--text-sm);
-      color: var(--text-tertiary);
+      color: white;
+      padding: var(--space-2) var(--space-6);
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
       transition: var(--transition-smooth);
+      box-shadow: var(--shadow-sm);
     }
 
     .pet-card:hover .card-enter {
-      color: var(--theme-color-1);
+      box-shadow: var(--shadow-glow-sm);
     }
 
     .arrow {
@@ -340,42 +459,84 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
       transform: translateX(4px);
     }
 
-    .card-theme-badge {
-      position: absolute;
-      top: var(--space-4);
-      right: var(--space-4);
-      width: 32px;
-      height: 32px;
-      border-radius: var(--radius-full);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-    }
-
     /* Footer */
     .home-footer {
       text-align: center;
       padding: var(--space-12) 0 var(--space-8);
     }
 
-    .footer-divider {
-      width: 60px;
-      height: 1px;
-      background: var(--border-subtle);
-      margin: 0 auto var(--space-6);
+    .footer-decor {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .pixel-flower {
+      color: var(--theme-color-1);
+      font-size: var(--text-lg);
+      animation: breathe 2.5s ease-in-out infinite;
+    }
+    .pixel-flower:nth-child(2) {
+      animation-delay: 0.4s;
+      color: var(--theme-color-2);
+    }
+    .pixel-flower:nth-child(3) {
+      animation-delay: 0.8s;
     }
 
     .footer-text {
       font-size: var(--text-sm);
-      color: var(--text-tertiary);
+      color: var(--text-secondary);
       margin-bottom: var(--space-2);
+      font-family: var(--font-display);
     }
 
     .footer-copy {
       font-size: var(--text-xs);
       color: var(--text-tertiary);
-      opacity: 0.5;
+      opacity: 0.6;
+    }
+
+    /* ---- Mobile Responsive ---- */
+    @media (max-width: 768px) {
+      .home-container {
+        padding: 0 var(--space-4);
+      }
+
+      .site-title {
+        font-size: var(--text-3xl);
+      }
+
+      .site-desc {
+        font-size: var(--text-base);
+      }
+
+      .hero-image {
+        height: 200px;
+      }
+
+      .hero-text {
+        font-size: var(--text-xl);
+      }
+
+      .hero-content {
+        left: var(--space-4);
+        bottom: var(--space-4);
+      }
+
+      .pets-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+      }
+
+      .section-header {
+        padding: var(--space-3) var(--space-4);
+      }
+
+      .section-heading {
+        font-size: var(--text-lg);
+      }
     }
 
     @keyframes slideDown {
@@ -386,6 +547,16 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce-soft {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    @keyframes breathe {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
     }
   `]
 })
@@ -398,7 +569,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.pets = this.petDataService.getAllPets();
-    this.themeService.setTheme('cyber-night');
+    this.themeService.setTheme('warm-sunset');
   }
 
   navigateToPet(pet: PetProfile): void {
@@ -408,9 +579,9 @@ export class HomeComponent implements OnInit {
   getThemeColor(pet: PetProfile): { c1: string; c2: string; bg: string } {
     const theme = this.themeService.getTheme(pet.theme);
     return {
-      c1: theme?.color1 || '#00D4FF',
-      c2: theme?.color2 || '#7B2FBE',
-      bg: '#12121a'
+      c1: theme?.color1 || '#FF6B35',
+      c2: theme?.color2 || '#FFD700',
+      bg: '#FFF3E6'
     };
   }
 
@@ -421,6 +592,6 @@ export class HomeComponent implements OnInit {
 
   getThemeEmoji(pet: PetProfile): string {
     const theme = this.themeService.getTheme(pet.theme);
-    return theme?.icon || '✨';
+    return theme?.icon || '\u2728';
   }
 }

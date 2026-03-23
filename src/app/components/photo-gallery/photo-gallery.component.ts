@@ -9,11 +9,11 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
   imports: [AnnotationNoteComponent],
   template: `
     <section class="gallery-section">
-      <h2 class="section-title">
-        <span class="title-icon">📸</span>
-        <span class="title-text">珍贵瞬间</span>
-        <span class="title-line"></span>
-      </h2>
+      <div class="gallery-header">
+        <span class="gallery-icon">📸</span>
+        <h2 class="gallery-title">珍贵瞬间</h2>
+        <div class="gallery-line"></div>
+      </div>
 
       <div class="gallery-grid">
         @for (photo of photos; track photo.id; let i = $index) {
@@ -62,42 +62,50 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
     }
   `,
   styles: [`
-    .gallery-section {
-      padding: var(--space-16) 0;
+    .pixel-art {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
     }
 
-    .section-title {
+    .gallery-section {
+      padding: var(--space-12) 0;
+    }
+
+    .gallery-header {
       display: flex;
       align-items: center;
-      gap: var(--space-4);
-      margin-bottom: var(--space-12);
-      font-family: var(--font-display);
+      gap: var(--space-3);
+      margin-bottom: var(--space-10);
+      padding: var(--space-3) var(--space-6);
+      background: var(--bg-card);
+      border-radius: var(--radius-2xl);
+      border: 2px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .gallery-icon {
       font-size: var(--text-2xl);
-      font-weight: 600;
+    }
+
+    .gallery-title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
       color: var(--text-primary);
     }
 
-    .title-icon {
-      font-size: var(--text-3xl);
-    }
-
-    .title-text {
-      background: var(--theme-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .title-line {
+    .gallery-line {
       flex: 1;
-      height: 1px;
-      background: var(--border-subtle);
+      height: 2px;
+      background: var(--theme-gradient);
+      border-radius: 2px;
+      opacity: 0.3;
     }
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: var(--space-8);
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-6);
     }
 
     .gallery-item {
@@ -107,16 +115,18 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
 
     .photo-wrapper {
       position: relative;
-      border-radius: var(--radius-xl);
+      border-radius: var(--radius-2xl);
       overflow: hidden;
       cursor: pointer;
-      border: 1px solid var(--border-subtle);
+      border: 3px solid var(--border-subtle);
       transition: var(--transition-smooth);
+      box-shadow: var(--shadow-pixel), var(--shadow-sm);
+      background: var(--bg-elevated);
     }
 
     .photo-wrapper:hover {
       border-color: var(--theme-color-1);
-      box-shadow: var(--shadow-glow-sm);
+      box-shadow: var(--shadow-pixel), var(--shadow-glow-sm);
       transform: translateY(-4px);
     }
 
@@ -135,7 +145,7 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
     .photo-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(255, 248, 240, 0.5);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -149,7 +159,7 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
 
     .zoom-icon {
       font-size: var(--text-3xl);
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      filter: drop-shadow(0 2px 4px rgba(180, 140, 100, 0.3));
     }
 
     .photo-caption {
@@ -157,13 +167,14 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
       font-size: var(--text-sm);
       color: var(--text-secondary);
       text-align: center;
+      font-family: var(--font-display);
     }
 
     /* Lightbox */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.92);
+      background: rgba(255, 248, 240, 0.92);
       backdrop-filter: blur(10px);
       z-index: 2000;
       display: flex;
@@ -185,34 +196,43 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
       position: absolute;
       top: -40px;
       right: 0;
-      background: none;
-      border: none;
+      background: var(--bg-card);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-full);
       color: var(--text-secondary);
-      font-size: var(--text-2xl);
+      font-size: var(--text-xl);
       cursor: pointer;
       padding: var(--space-2);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: var(--transition-fast);
       z-index: 10;
     }
 
     .lightbox-close:hover {
-      color: var(--text-primary);
+      color: var(--theme-text);
+      border-color: var(--theme-color-1);
     }
 
     .lightbox-nav {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
+      background: var(--bg-card);
+      border: 2px solid var(--border-subtle);
       color: var(--text-primary);
-      font-size: var(--text-4xl);
-      padding: var(--space-4) var(--space-3);
+      font-size: var(--text-3xl);
+      padding: var(--space-3) var(--space-3);
       cursor: pointer;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-xl);
       transition: var(--transition-smooth);
       flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
     }
 
     .lightbox-nav:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: var(--theme-gradient-soft);
+      border-color: var(--theme-color-1);
       box-shadow: var(--shadow-glow-sm);
     }
 
@@ -224,19 +244,21 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
       max-width: 70vw;
       max-height: 75vh;
       object-fit: contain;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
+      border-radius: var(--radius-2xl);
+      border: 4px solid var(--border-medium);
+      box-shadow: var(--shadow-pixel), var(--shadow-lg);
     }
 
     .lightbox-caption {
       margin-top: var(--space-4);
       font-size: var(--text-base);
       color: var(--text-secondary);
+      font-family: var(--font-display);
     }
 
     .lightbox-dots {
       position: absolute;
-      bottom: -35px;
+      bottom: -40px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -244,18 +266,54 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
     }
 
     .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: var(--radius-full);
-      background: var(--text-tertiary);
+      width: 10px;
+      height: 10px;
+      border-radius: var(--radius-sm);
+      background: var(--border-medium);
       cursor: pointer;
       transition: var(--transition-fast);
     }
 
     .dot.active {
-      background: var(--theme-color-1);
+      background: var(--theme-gradient);
       box-shadow: 0 0 8px var(--theme-glow-1);
       transform: scale(1.3);
+    }
+
+    /* ---- Mobile Responsive ---- */
+    @media (max-width: 768px) {
+      .gallery-section {
+        padding: var(--space-6) 0;
+      }
+
+      .gallery-header {
+        margin-bottom: var(--space-6);
+        padding: var(--space-2) var(--space-4);
+      }
+
+      .gallery-title {
+        font-size: var(--text-lg);
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+
+      .lightbox-content {
+        max-width: 95vw;
+        gap: var(--space-2);
+      }
+
+      .lightbox-image-wrapper img {
+        max-width: 85vw;
+        max-height: 70vh;
+      }
+
+      .lightbox-nav {
+        font-size: var(--text-xl);
+        padding: var(--space-2);
+      }
     }
 
     @keyframes fadeIn {

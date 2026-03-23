@@ -8,11 +8,11 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
   imports: [AnnotationNoteComponent],
   template: `
     <section class="video-section">
-      <h2 class="section-title">
-        <span class="title-icon">🎬</span>
-        <span class="title-text">动态回忆</span>
-        <span class="title-line"></span>
-      </h2>
+      <div class="video-header">
+        <span class="video-icon">🎬</span>
+        <h2 class="video-title-text">动态回忆</h2>
+        <div class="video-line"></div>
+      </div>
 
       <div class="video-list">
         @for (video of videos; track video.id; let i = $index) {
@@ -27,7 +27,6 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
               >
                 您的浏览器不支持视频播放
               </video>
-              <div class="video-gradient-overlay"></div>
             </div>
             <div class="video-info">
               <h3 class="video-title">{{ video.title }}</h3>
@@ -48,33 +47,37 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
   `,
   styles: [`
     .video-section {
-      padding: var(--space-16) 0;
+      padding: var(--space-12) 0;
     }
 
-    .section-title {
+    .video-header {
       display: flex;
       align-items: center;
-      gap: var(--space-4);
-      margin-bottom: var(--space-12);
-      font-family: var(--font-display);
+      gap: var(--space-3);
+      margin-bottom: var(--space-10);
+      padding: var(--space-3) var(--space-6);
+      background: var(--bg-card);
+      border-radius: var(--radius-2xl);
+      border: 2px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .video-icon {
       font-size: var(--text-2xl);
-      font-weight: 600;
+    }
+
+    .video-title-text {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
       color: var(--text-primary);
     }
 
-    .title-icon { font-size: var(--text-3xl); }
-
-    .title-text {
-      background: var(--theme-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .title-line {
+    .video-line {
       flex: 1;
-      height: 1px;
-      background: var(--border-subtle);
+      height: 2px;
+      background: var(--theme-gradient);
+      border-radius: 2px;
+      opacity: 0.3;
     }
 
     .video-list {
@@ -86,16 +89,17 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
     .video-card {
       position: relative;
       animation: slideUp 0.6s ease-out both;
-      border-radius: var(--radius-xl);
+      border-radius: var(--radius-2xl);
       overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      background: var(--glass-bg);
+      border: 3px solid var(--border-subtle);
+      background: var(--bg-card);
       transition: var(--transition-smooth);
+      box-shadow: var(--shadow-pixel), var(--shadow-sm);
     }
 
     .video-card:hover {
       border-color: var(--theme-color-1);
-      box-shadow: var(--shadow-glow-sm);
+      box-shadow: var(--shadow-pixel), var(--shadow-glow-sm);
     }
 
     .video-wrapper {
@@ -110,16 +114,6 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
       background: var(--bg-elevated);
     }
 
-    .video-gradient-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
-      pointer-events: none;
-    }
-
     .video-info {
       padding: var(--space-4) var(--space-6);
     }
@@ -127,7 +121,6 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
     .video-title {
       font-family: var(--font-display);
       font-size: var(--text-lg);
-      font-weight: 600;
       color: var(--text-primary);
       margin-bottom: var(--space-2);
     }
@@ -135,7 +128,32 @@ import { AnnotationNoteComponent } from '../annotation-note/annotation-note.comp
     .video-desc {
       font-size: var(--text-sm);
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.7;
+    }
+
+    /* ---- Mobile Responsive ---- */
+    @media (max-width: 768px) {
+      .video-section {
+        padding: var(--space-6) 0;
+      }
+
+      .video-header {
+        margin-bottom: var(--space-6);
+        padding: var(--space-2) var(--space-4);
+      }
+
+      .video-title-text {
+        font-size: var(--text-lg);
+      }
+
+      .video-list {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+
+      .video-info {
+        padding: var(--space-3) var(--space-4);
+      }
     }
 
     @keyframes slideUp {
@@ -151,7 +169,6 @@ export class VideoSectionComponent {
 
   onVideoPlay(event: Event): void {
     const video = event.target as HTMLVideoElement;
-    // Pause other videos when one starts playing
     if (this.activeVideo && this.activeVideo !== video) {
       this.activeVideo.pause();
     }

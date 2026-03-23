@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude skill:*)",
+      "Bash(npx skills:*)",
+      "Bash(gh auth:*)",
+      "Bash(python3:*)",
+      "Bash(identify /Users/dunhui.xiao/Library/Code/cyber-tombstone-project/public/images/pets/xiaoxue/pixel/avatar.png)"
+    ]
+  }
+}
