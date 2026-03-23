@@ -61,5 +61,6 @@ export const XIAOXUE_PROFILE: PetProfile = {
     posthumousName: '慧静高冷偶尔撒娇窗台圣洁小雪女皇',
     posthumousNameNote: '慧静——看破一切却懒得理你；高冷——每日仅限三次抚摸配额，超额则挠；偶尔撒娇——凌晨三点准时踩脸；窗台圣洁——称霸全屋最佳观景位长达九年',
     fullTitle: '大喵朝 傲宗 慧静高冷偶尔撒娇窗台圣洁小雪女皇'
-  }
+  },
+  epitaph: '来时如雪，去时亦如雪，留一室温柔，伴我岁岁年年'
 };

@@ -61,5 +61,6 @@ export const WANGCAI_PROFILE: PetProfile = {
     posthumousName: '忠烈贪嘴摇尾如风黏人圣善旺财大帝',
     posthumousNameNote: '忠烈——守门十二载，仅对快递员狂吠不止；贪嘴——曾一口吞下整根火腿肠，连包装都没放过；摇尾如风——尾巴摆动频率可发电；黏人——超过三分钟不摸就开始哼唧',
     fullTitle: '大旺朝 馋宗 忠烈贪嘴摇尾如风黏人圣善旺财大帝'
-  }
+  },
+  epitaph: '十二年守护，一生忠诚，愿你彩虹桥上继续追逐蝴蝶'
 };

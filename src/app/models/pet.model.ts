@@ -58,4 +58,5 @@ export interface PetProfile {
   theme: ThemeId;
   backgroundMusic?: string;
   title?: PetTitle;
+  epitaph?: string; // 墓志铭
 }

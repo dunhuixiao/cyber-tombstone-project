@@ -31,6 +31,11 @@ import { PetProfile } from '../../models/pet.model';
               <span class="gender-icon">{{ pet.gender === '男' ? '♂' : '♀' }}</span>
               <span>{{ pet.gender === '男' ? '男孩' : '女孩' }}</span>
             </div>
+            @if (pet.epitaph) {
+              <div class="pet-epitaph">
+                <span class="epitaph-text">{{ pet.epitaph }}</span>
+              </div>
+            }
           </div>
         </div>
 
@@ -259,6 +264,27 @@ import { PetProfile } from '../../models/pet.model';
     .gender-icon {
       font-size: var(--text-lg);
       color: var(--theme-color-1);
+    }
+
+    .pet-epitaph {
+      text-align: center;
+      margin-top: var(--space-3);
+      font-style: italic;
+      color: var(--text-tertiary);
+      font-size: var(--text-sm);
+      font-family: var(--font-body);
+    }
+
+    .epitaph-text {
+      position: relative;
+      padding: 0 var(--space-4);
+    }
+
+    .epitaph-text::before,
+    .epitaph-text::after {
+      content: '"';
+      color: var(--theme-color-1);
+      opacity: 0.6;
     }
 
     /* Bio */
