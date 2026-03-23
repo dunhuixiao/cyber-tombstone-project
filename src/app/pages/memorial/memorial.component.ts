@@ -30,7 +30,7 @@ import { PixelPetRunnerComponent } from '../../components/pixel-pet-runner/pixel
       <!-- Top-right toolbar: share + theme selector -->
       <div class="top-right-toolbar">
         <button class="toolbar-btn share-btn" (click)="shareLink()" [attr.aria-label]="shareText()">
-          <span class="toolbar-btn-icon">{{ shareText() === '\u5206\u4EAB' ? '\uD83D\uDD17' : '\u2713' }}</span>
+          <span class="toolbar-btn-icon">{{ shareText() === '分享' ? '🔗' : '✓' }}</span>
         </button>
         <app-theme-selector />
       </div>
@@ -46,18 +46,18 @@ import { PixelPetRunnerComponent } from '../../components/pixel-pet-runner/pixel
         <!-- Top Back Button -->
         <div class="action-bar">
           <button class="action-btn back-btn" (click)="goBack()">
-            <span class="back-arrow">\u2190</span>
-            <span>\u8FD4\u56DE\u9996\u9875</span>
+            <span class="back-arrow">←</span>
+            <span>返回首页</span>
           </button>
         </div>
 
         <!-- Memorial Header Decoration -->
         <div class="memorial-header-deco">
-          <span class="deco-flower">\u2740</span>
+          <span class="deco-flower">❀</span>
           <div class="deco-line"></div>
-          <span class="deco-flower">\uD83E\uDEA6</span>
+          <span class="deco-flower">🪦</span>
           <div class="deco-line"></div>
-          <span class="deco-flower">\u2740</span>
+          <span class="deco-flower">❀</span>
         </div>
 
         <!-- Mobile Swipe Container -->
@@ -71,7 +71,7 @@ import { PixelPetRunnerComponent } from '../../components/pixel-pet-runner/pixel
           @if (pet.photos && pet.photos.length > 0) {
             <div class="section-divider">
               <div class="divider-line"></div>
-              <div class="divider-icon">\u273F</div>
+              <div class="divider-icon">✿</div>
               <div class="divider-line"></div>
             </div>
             <div class="mobile-card">
@@ -83,7 +83,7 @@ import { PixelPetRunnerComponent } from '../../components/pixel-pet-runner/pixel
           @if (pet.videos && pet.videos.length > 0) {
             <div class="section-divider">
               <div class="divider-line"></div>
-              <div class="divider-icon">\u266B</div>
+              <div class="divider-icon">♫</div>
               <div class="divider-line"></div>
             </div>
             <div class="mobile-card">
@@ -95,23 +95,23 @@ import { PixelPetRunnerComponent } from '../../components/pixel-pet-runner/pixel
         <!-- Memorial Footer -->
         <footer class="memorial-footer">
           <div class="footer-decoration">
-            <span class="footer-star">\uD83C\uDF1F</span>
+            <span class="footer-star">🌟</span>
           </div>
-          <p class="footer-epitaph">\u6C38\u8FDC\u88AB\u7231\uFF0C\u6C38\u8FDC\u88AB\u8BB0\u4F4F</p>
+          <p class="footer-epitaph">永远被爱，永远被记住</p>
           <p class="footer-epitaph-en">Forever loved, forever remembered</p>
           <div class="footer-dates-badge">
-            <span>\uD83C\uDF38</span>
-            {{ pet.birthDate }} \u2014 {{ pet.deathDate }}
-            <span>\uD83C\uDF38</span>
+            <span>🌸</span>
+            {{ pet.birthDate }} — {{ pet.deathDate }}
+            <span>🌸</span>
           </div>
         </footer>
       </div>
     } @else {
       <div class="not-found">
-        <p>\u672A\u627E\u5230\u8BE5\u5BA0\u7269\u7684\u7EAA\u5FF5\u6863\u6848</p>
+        <p>未找到该宠物的纪念档案</p>
         <button class="back-btn-inline" (click)="goBack()">
-          <span class="back-arrow">\u2190</span>
-          <span>\u8FD4\u56DE\u9996\u9875</span>
+          <span class="back-arrow">←</span>
+          <span>返回首页</span>
         </button>
       </div>
     }
@@ -420,7 +420,7 @@ export class MemorialComponent implements OnInit, OnDestroy {
   themeColor1 = '#FF6B35';
   themeColor2 = '#FFD700';
 
-  shareText = signal('\u5206\u4EAB');
+  shareText = signal('分享');
 
   ngOnInit(): void {
     const petId = this.route.snapshot.paramMap.get('id');
@@ -450,8 +450,8 @@ export class MemorialComponent implements OnInit, OnDestroy {
     const url = window.location.href;
     try {
       await navigator.clipboard.writeText(url);
-      this.shareText.set('\u5DF2\u590D\u5236 \u2713');
-      setTimeout(() => this.shareText.set('\u5206\u4EAB'), 2000);
+      this.shareText.set('已复制 ✓');
+      setTimeout(() => this.shareText.set('分享'), 2000);
     } catch {
       const textarea = document.createElement('textarea');
       textarea.value = url;
@@ -461,8 +461,8 @@ export class MemorialComponent implements OnInit, OnDestroy {
       textarea.select();
       document.execCommand('copy');
       document.body.removeChild(textarea);
-      this.shareText.set('\u5DF2\u590D\u5236 \u2713');
-      setTimeout(() => this.shareText.set('\u5206\u4EAB'), 2000);
+      this.shareText.set('已复制 ✓');
+      setTimeout(() => this.shareText.set('分享'), 2000);
     }
   }
 }

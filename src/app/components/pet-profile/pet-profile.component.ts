@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { PetProfile } from '../../models/pet.model';
-import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.component';
 
 @Component({
   selector: 'app-pet-profile',
   standalone: true,
-  imports: [PixelPetBorderComponent],
+  imports: [],
   template: `
     @if (pet) {
       <section class="profile-section">
@@ -15,28 +14,22 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
             <div class="avatar-frame">
               <img [src]="pet.avatar" [alt]="pet.name" class="avatar-image" />
             </div>
-            <!-- Pixel pet sprite border (desktop pet style) -->
-            @if (pet.pixelSprite) {
-              <app-pixel-pet-border
-                [spriteUrl]="pet.pixelSprite"
-                [species]="pet.species"
-              />
-            }
-            <div class="avatar-deco-left">\u273F</div>
-            <div class="avatar-deco-right">\u273F</div>
+            <img [src]="'images/pets/' + pet.id + '/pixel/sprite.png'" alt="pixel sprite" class="pixel-sprite-frame" />
+            <div class="avatar-deco-left">✿</div>
+            <div class="avatar-deco-right">✿</div>
           </div>
 
           <div class="hero-info">
-            <div class="pet-species-badge">{{ pet.species }} \u00B7 {{ pet.breed }}</div>
+            <div class="pet-species-badge">{{ pet.species }} · {{ pet.breed }}</div>
             <h1 class="pet-name">{{ pet.name }}</h1>
             <div class="pet-dates">
-              <span class="date-birth">\uD83C\uDF38 {{ pet.birthDate }}</span>
-              <span class="date-separator">\u2014</span>
-              <span class="date-death">\uD83C\uDF1F {{ pet.deathDate }}</span>
+              <span class="date-birth">🌸 {{ pet.birthDate }}</span>
+              <span class="date-separator">—</span>
+              <span class="date-death">🌟 {{ pet.deathDate }}</span>
             </div>
             <div class="pet-gender">
-              <span class="gender-icon">{{ pet.gender === '\u7537' ? '\u2642' : '\u2640' }}</span>
-              <span>{{ pet.gender === '\u7537' ? '\u7537\u5B69' : '\u5973\u5B69' }}</span>
+              <span class="gender-icon">{{ pet.gender === '男' ? '♂' : '♀' }}</span>
+              <span>{{ pet.gender === '男' ? '男孩' : '女孩' }}</span>
             </div>
           </div>
         </div>
@@ -45,8 +38,8 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
         <div class="bio-section">
           <div class="bio-card">
             <div class="bio-header">
-              <span class="bio-icon">\uD83D\uDCD6</span>
-              <span class="bio-title">TA \u7684\u6545\u4E8B</span>
+              <span class="bio-icon">📖</span>
+              <span class="bio-title">TA 的故事</span>
             </div>
             <div class="bio-decoration"></div>
             <p class="bio-text">{{ pet.bio }}</p>
@@ -56,7 +49,7 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
         <!-- Tags Section -->
         <div class="tags-row">
           <div class="tag-group">
-            <h3 class="tag-group-title">\uD83C\uDFAD \u6027\u683C\u7279\u5F81</h3>
+            <h3 class="tag-group-title">🎭 性格特征</h3>
             <div class="tags">
               @for (trait of pet.personality; track trait) {
                 <span class="tag">{{ trait }}</span>
@@ -64,7 +57,7 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
             </div>
           </div>
           <div class="tag-group">
-            <h3 class="tag-group-title">\uD83D\uDC95 \u6700\u7231\u7684\u4E8B</h3>
+            <h3 class="tag-group-title">💕 最爱的事</h3>
             <div class="tags">
               @for (thing of pet.favoriteThings; track thing) {
                 <span class="tag tag-favorite">{{ thing }}</span>
@@ -77,18 +70,18 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
         <div class="message-section">
           <div class="message-card">
             <div class="message-header">
-              <span class="message-icon">\uD83D\uDC8C</span>
-              <span class="message-title">\u4E3B\u4EBA\u7684\u8BDD</span>
+              <span class="message-icon">💌</span>
+              <span class="message-title">主人的话</span>
             </div>
             <p class="message-text">{{ pet.ownerMessage }}</p>
           </div>
         </div>
 
-        <!-- \u5E99\u53F7 & \u8C25\u53F7 Module (only shown if title data exists) -->
+        <!-- 庙号 & 谥号 Module (only shown if title data exists) -->
         @if (pet.title && pet.title.templeName && pet.title.posthumousName) {
           <div class="title-section">
             <div class="title-card">
-              <!-- \u5377\u8F74\u5934\u90E8\u88C5\u9970 -->
+              <!-- 卷轴头部装饰 -->
               <div class="scroll-top">
                 <div class="scroll-rod"></div>
                 <div class="scroll-rod-end left"></div>
@@ -97,9 +90,9 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
 
               <div class="title-card-inner">
                 <div class="title-header">
-                  <span class="title-seal">\uD83D\uDCDC</span>
-                  <span class="title-heading">\u8FFD\u5C01\u8BCF\u4E66</span>
-                  <span class="title-seal">\uD83D\uDCDC</span>
+                  <span class="title-seal">📜</span>
+                  <span class="title-heading">追封诏书</span>
+                  <span class="title-seal">📜</span>
                 </div>
 
                 <div class="title-full-name">
@@ -107,13 +100,13 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
                 </div>
 
                 <div class="title-divider">
-                  <span class="divider-deco">~ \u2756 ~</span>
+                  <span class="divider-deco">~ ❖ ~</span>
                 </div>
 
                 <div class="title-details">
                   <div class="title-item">
                     <div class="title-item-label">
-                      <span class="label-deco">\u3010</span>\u5E99\u53F7<span class="label-deco">\u3011</span>
+                      <span class="label-deco">【</span>庙号<span class="label-deco">】</span>
                     </div>
                     <div class="title-item-value">{{ pet.title.templeName }}</div>
                     <div class="title-item-note">{{ pet.title.templeNameNote }}</div>
@@ -121,7 +114,7 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
 
                   <div class="title-item">
                     <div class="title-item-label">
-                      <span class="label-deco">\u3010</span>\u8C25\u53F7<span class="label-deco">\u3011</span>
+                      <span class="label-deco">【</span>谥号<span class="label-deco">】</span>
                     </div>
                     <div class="title-item-value posthumous">{{ pet.title.posthumousName }}</div>
                     <div class="title-item-note">{{ pet.title.posthumousNameNote }}</div>
@@ -129,11 +122,11 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
                 </div>
 
                 <div class="title-footer-text">
-                  \u5949\u5929\u627F\u8FD0\uFF0C\u94F2\u5C4E\u5B98\u8BCF\u66F0\uFF1A\u7279\u8FFD\u5C01\u4EE5\u4E0A\u5C0A\u53F7\uFF0C\u4EE5\u5F70\u5176\u4E00\u751F\u4E4B\u4F1F\u5927\u529F\u5FB7\u3002\u94A6\u6B64\u3002
+                  奉天承运，铲屎官诏曰：特追封以上尊号，以彰其一生之伟大功德。钦此。
                 </div>
               </div>
 
-              <!-- \u5377\u8F74\u5E95\u90E8\u88C5\u9970 -->
+              <!-- 卷轴底部装饰 -->
               <div class="scroll-bottom">
                 <div class="scroll-rod"></div>
                 <div class="scroll-rod-end left"></div>
@@ -187,6 +180,20 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .pixel-sprite-frame {
+      position: absolute;
+      top: -56px;
+      right: -16px;
+      width: 92px;
+      height: 92px;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      z-index: 10;
+      pointer-events: none;
+      filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.15));
     }
 
     .avatar-deco-left,
@@ -396,7 +403,7 @@ import { PixelPetBorderComponent } from '../pixel-pet-border/pixel-pet-border.co
       font-style: italic;
     }
 
-    /* ===== \u5E99\u53F7 & \u8C25\u53F7 \u5377\u8F74\u6A21\u5757 ===== */
+    /* ===== 庙号 & 谥号 卷轴模块 ===== */
     .title-section {
       padding: var(--space-8) 0;
       max-width: 680px;

@@ -5,10 +5,10 @@ const BASE = 'images/pets/xiaoxue';
 
 export const XIAOXUE_PROFILE: PetProfile = {
   id: 'xiaoxue',
-  name: '\u5C0F\u96EA',
-  species: '\u732B',
-  breed: '\u6CE2\u65AF\u732B',
-  gender: '\u5973',
+  name: '小雪',
+  species: '猫',
+  breed: '波斯猫',
+  gender: '女',
   birthDate: '2016-12-25',
   deathDate: '2025-11-08',
   avatar: `${BASE}/real/avatar.png`,
@@ -19,22 +19,22 @@ export const XIAOXUE_PROFILE: PetProfile = {
     {
       id: 'p1',
       url: `${BASE}/real/avatar.png`,
-      caption: '\u5C0F\u96EA\u7684\u8096\u50CF\u7167',
-      annotation: '\u50CF\u516C\u4E3B\u4E00\u6837\u4F18\u96C5\uFF0C\u84DD\u8272\u7684\u773C\u775B\u50CF\u4E24\u9897\u5B9D\u77F3',
+      caption: '小雪的肖像照',
+      annotation: '像公主一样优雅，蓝色的眼睛像两颗宝石',
       annotationPosition: 'top-right'
     },
     {
       id: 'p2',
       url: `${BASE}/real/window.png`,
-      caption: '\u7A97\u8FB9\u7684\u5C0F\u96EA',
-      annotation: '\u5C0F\u96EA\u6700\u559C\u6B22\u5728\u7A97\u8FB9\u770B\u96E8\uFF0C\u5B89\u9759\u53C8\u7F8E\u597D',
+      caption: '窗边的小雪',
+      annotation: '小雪最喜欢在窗边看雨，安静又美好',
       annotationPosition: 'bottom-right'
     },
     {
       id: 'p3',
       url: `${BASE}/real/play.png`,
-      caption: '\u73A9\u800D\u4E2D\u7684\u5C0F\u96EA',
-      annotation: '\u5E73\u65F6\u9AD8\u51B7\uFF0C\u4F46\u4E00\u78B0\u5230\u6BDB\u7EBF\u7403\u5C31\u79D2\u53D8\u5C0F\u7591\u5B50',
+      caption: '玩耍中的小雪',
+      annotation: '平时高冷，但一碰到毛线球就秒变小傻子',
       annotationPosition: 'top-left'
     }
   ],
@@ -43,23 +43,23 @@ export const XIAOXUE_PROFILE: PetProfile = {
       id: 'v1',
       url: 'https://www.w3schools.com/html/mov_bbb.mp4',
       poster: `${BASE}/real/window.png`,
-      title: '\u5C0F\u96EA\u7684\u65E5\u5E38',
-      description: '\u5C0F\u96EA\u5728\u7A97\u53F0\u6652\u592A\u9633\u7684\u60A0\u95F2\u5348\u540E',
-      annotation: '\u5979\u603B\u662F\u5728\u8FD9\u4E2A\u89D2\u843D\u7B49\u6211\u56DE\u5BB6',
+      title: '小雪的日常',
+      description: '小雪在窗台晒太阳的悠闲午后',
+      annotation: '她总是在这个角落等我回家',
       annotationPosition: 'bottom-left'
     }
   ],
-  bio: '\u5C0F\u96EA\u662F\u4E00\u53EA\u7F8E\u4E3D\u7684\u767D\u8272\u6CE2\u65AF\u732B\uFF0C\u5728\u5723\u8BDE\u8282\u51FA\u751F\uFF0C\u5982\u540C\u4E00\u4EFD\u6765\u81EA\u5929\u5802\u7684\u793C\u7269\u3002\u5979\u62E5\u6709\u4E00\u53CC\u6E5B\u84DD\u8272\u7684\u773C\u775B\u548C\u4E00\u8EAB\u5982\u96EA\u7684\u957F\u6BDB\u3002\u867D\u7136\u5916\u8868\u9AD8\u51B7\uFF0C\u4F46\u5979\u4F1A\u5728\u6DF1\u591C\u6084\u6084\u722C\u5230\u5E8A\u8FB9\uFF0C\u7528\u6E29\u6696\u7684\u8EAB\u4F53\u4F9D\u5055\u7740\u4F60\u5165\u7761\u3002\u5979\u662F\u6211\u4EEC\u5BB6\u6700\u4F18\u96C5\u7684\u5C0F\u516C\u4E3B\u3002',
-  personality: ['\u4F18\u96C5', '\u9AD8\u51B7', '\u6E29\u67D4', '\u597D\u5947', '\u5B89\u9759'],
-  favoriteThings: ['\u7A97\u53F0\u6652\u592A\u9633', '\u6BDB\u7EBF\u7403', '\u91D1\u67AA\u9C7C\u7F50\u5934', '\u7EB8\u7BB1', '\u88AB\u68B3\u6BDB'],
-  ownerMessage: '\u5C0F\u96EA\uFF0C\u4F60\u662F\u6211\u6536\u5230\u7684\u6700\u597D\u7684\u5723\u8BDE\u793C\u7269\u3002\u4E5D\u5E74\u7684\u966A\u4F34\uFF0C\u4F60\u7528\u65E0\u58F0\u7684\u6E29\u67D4\u6CBB\u6108\u4E86\u6211\u65E0\u6570\u4E2A\u75B2\u60EB\u7684\u591C\u665A\u3002\u613F\u4F60\u5728\u661F\u8FB0\u4E4B\u95F4\uFF0C\u4F9D\u7136\u662F\u90A3\u53EA\u6700\u4F18\u96C5\u7684\u5C0F\u516C\u4E3B\u3002\u6C38\u8FDC\u7231\u4F60\u3002',
+  bio: '小雪是一只美丽的白色波斯猫，在圣诞节出生，如同一份来自天堂的礼物。她拥有一双湛蓝色的眼睛和一身如雪的长毛。虽然外表高冷，但她会在深夜悄悄爬到床边，用温暖的身体依偎着你入睡。她是我们家最优雅的小公主。',
+  personality: ['优雅', '高冷', '温柔', '好奇', '安静'],
+  favoriteThings: ['窗台晒太阳', '毛线球', '金枪鱼罐头', '纸箱', '被梳毛'],
+  ownerMessage: '小雪，你是我收到的最好的圣诞礼物。九年的陪伴，你用无声的温柔治愈了我无数个疲惫的夜晚。愿你在星辰之间，依然是那只最优雅的小公主。永远爱你。',
   theme: 'gentle-love',
   backgroundMusic: `${BASE}/bgm.wav`,
   title: {
-    templeName: '\u50B2\u5B97',
-    templeNameNote: '\u4E00\u751F\u9AD8\u8D35\u51B7\u8273\uFF0C\u4EC5\u5728\u7F50\u5934\u5F00\u542F\u65F6\u77ED\u6682\u964D\u5C0A\u5C48\u8D35\uFF0C\u4FEE\u70BC\u51FA\u300C\u5DF2\u8BFB\u4E0D\u56DE\u300D\u5965\u4E49',
-    posthumousName: '\u6167\u9759\u9AD8\u51B7\u5076\u5C14\u6492\u5A07\u7A97\u53F0\u5723\u6D01\u5C0F\u96EA\u5973\u7687',
-    posthumousNameNote: '\u6167\u9759\u2014\u2014\u770B\u7834\u4E00\u5207\u5374\u61D2\u5F97\u7406\u4F60\uFF1B\u9AD8\u51B7\u2014\u2014\u6BCF\u65E5\u4EC5\u9650\u4E09\u6B21\u629A\u6478\u914D\u989D\uFF0C\u8D85\u989D\u5219\u6320\uFF1B\u5076\u5C14\u6492\u5A07\u2014\u2014\u51CC\u6668\u4E09\u70B9\u51C6\u65F6\u8E29\u8138\uFF1B\u7A97\u53F0\u5723\u6D01\u2014\u2014\u79F0\u9738\u5168\u5C4B\u6700\u4F73\u89C2\u666F\u4F4D\u957F\u8FBE\u4E5D\u5E74',
-    fullTitle: '\u5927\u55B5\u671D \u50B2\u5B97 \u6167\u9759\u9AD8\u51B7\u5076\u5C14\u6492\u5A07\u7A97\u53F0\u5723\u6D01\u5C0F\u96EA\u5973\u7687'
+    templeName: '傲宗',
+    templeNameNote: '一生高贵冷艳，仅在罐头开启时短暂降尊屈贵，修炼出「已读不回」奥义',
+    posthumousName: '慧静高冷偶尔撒娇窗台圣洁小雪女皇',
+    posthumousNameNote: '慧静——看破一切却懒得理你；高冷——每日仅限三次抚摸配额，超额则挠；偶尔撒娇——凌晨三点准时踩脸；窗台圣洁——称霸全屋最佳观景位长达九年',
+    fullTitle: '大喵朝 傲宗 慧静高冷偶尔撒娇窗台圣洁小雪女皇'
   }
 };

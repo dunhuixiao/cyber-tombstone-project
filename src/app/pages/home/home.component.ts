@@ -16,29 +16,29 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
       <!-- Header / Welcome Module -->
       <header class="home-header">
         <div class="header-decor-top">
-          <span class="pixel-star">\u2743</span>
-          <span class="pixel-star">\u2743</span>
-          <span class="pixel-star">\u2743</span>
+          <span class="pixel-star">❃</span>
+          <span class="pixel-star">❃</span>
+          <span class="pixel-star">❃</span>
         </div>
         <div class="logo-section">
-          <h1 class="site-title">\u8D5B\u535A\u5893\u7891\uD83E\uDEA6</h1>
+          <h1 class="site-title">赛博墓碑🪦</h1>
           <p class="site-subtitle">Pixel Memorial</p>
         </div>
-        <p class="site-desc">\u5728\u50CF\u7D20\u4E16\u754C\u91CC\uFF0C\u6BCF\u4E00\u4E2A\u5C0F\u5C0F\u7684\u751F\u547D\u90FD\u503C\u5F97\u88AB\u6E29\u67D4\u5730\u8BB0\u4F4F</p>
+        <p class="site-desc">在虚拟世界里，每一个小小的生命都值得被温柔地记住</p>
         <div class="header-decor-bottom">
           <div class="decor-dash"></div>
-          <span class="decor-heart">\u2665</span>
+          <span class="decor-heart">♥</span>
           <div class="decor-dash"></div>
         </div>
       </header>
 
-      <!-- Hero Banner (\u50CF\u7D20\u98CE) -->
+      <!-- Hero Banner (像素风) -->
       <div class="hero-banner">
         <div class="hero-frame">
-          <img src="images/hero-banner-pixel.png" alt="\u8D5B\u535A\u5893\u7891" class="hero-image pixel-art" />
+          <img src="images/hero-banner-pixel.png" alt="赛博墓碑" class="hero-image pixel-art" />
           <div class="hero-overlay"></div>
           <div class="hero-content">
-            <p class="hero-text">\u6BCF\u4E00\u4E2A\u751F\u547D\u90FD\u503C\u5F97\u88AB\u94ED\u8BB0</p>
+            <p class="hero-text"></p>
             <p class="hero-subtext">Every life deserves to be remembered</p>
           </div>
         </div>
@@ -47,8 +47,8 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
       <!-- Pet Cards Section -->
       <section class="pets-section">
         <div class="section-header">
-          <span class="section-icon">\uD83D\uDC3E</span>
-          <h2 class="section-heading">\u6211\u7684\u5C0F\u4F19\u4F34</h2>
+          <span class="section-icon">🐾</span>
+          <h2 class="section-heading">我的小伙伴</h2>
           <div class="section-line"></div>
         </div>
 
@@ -64,17 +64,18 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
                     [style.border-color]="getThemeColor(pet).c1">
                     <img [src]="pet.pixelAvatar" [alt]="pet.name" class="card-avatar pixel-art" />
                   </div>
+                  <img [src]="'images/pets/' + pet.id + '/pixel/sprite.png'" alt="pixel sprite" class="pixel-sprite-frame" />
                   <div class="card-theme-badge"
                     [style.background]="'linear-gradient(135deg, ' + getThemeColor(pet).c1 + ', ' + getThemeColor(pet).c2 + ')'">
                     {{ getThemeEmoji(pet) }}
                   </div>
                 </div>
                 <h3 class="card-name">{{ pet.name }}</h3>
-                <p class="card-breed">{{ pet.species }} \u00B7 {{ pet.breed }}</p>
+                <p class="card-breed">{{ pet.species }} · {{ pet.breed }}</p>
                 <div class="card-date-badge"
                   [style.background]="'linear-gradient(90deg, ' + getThemeColor(pet).c1 + '18, ' + getThemeColor(pet).c2 + '18)'">
-                  <span class="date-icon">\uD83C\uDF1F</span>
-                  <span class="date-text">{{ pet.birthDate }} \u2014 {{ pet.deathDate }}</span>
+                  <span class="date-icon">🌟</span>
+                  <span class="date-text">{{ pet.birthDate }} — {{ pet.deathDate }}</span>
                 </div>
                 <p class="card-bio">{{ pet.bio.substring(0, 60) }}...</p>
                 <div class="card-tags">
@@ -88,8 +89,8 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
                 </div>
                 <div class="card-enter"
                   [style.background]="'linear-gradient(135deg, ' + getThemeColor(pet).c1 + ', ' + getThemeColor(pet).c2 + ')'">
-                  <span>\u53BB\u770B\u770B TA</span>
-                  <span class="arrow">\u2192</span>
+                  <span>去看看 TA</span>
+                  <span class="arrow">→</span>
                 </div>
               </div>
             </div>
@@ -100,12 +101,12 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
       <!-- Footer -->
       <footer class="home-footer">
         <div class="footer-decor">
-          <span class="pixel-flower">\u2740</span>
-          <span class="pixel-flower">\u2740</span>
-          <span class="pixel-flower">\u2740</span>
+          <span class="pixel-flower">❀</span>
+          <span class="pixel-flower">❀</span>
+          <span class="pixel-flower">❀</span>
         </div>
-        <p class="footer-text">\u8D5B\u535A\u5893\u7891\uD83E\uDEA6 \u2014 \u7528\u6E29\u6696\u7684\u50CF\u7D20\u94ED\u8BB0\u7231\u4E0E\u966A\u4F34</p>
-        <p class="footer-copy">\u00A9 2026 - present Sora</p>
+        <p class="footer-text">赛博墓碑🪦 — 用温暖的像素铭记爱与陪伴</p>
+        <p class="footer-copy">© 2026 - present Sora</p>
       </footer>
     </div>
   `,
@@ -356,6 +357,20 @@ import { ParticleBgComponent } from '../../components/particle-bg/particle-bg.co
       object-fit: cover;
     }
 
+    .pixel-sprite-frame {
+      position: absolute;
+      top: -27px;
+      right: -12px;
+      width: 58px;
+      height: 58px;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      z-index: 10;
+      pointer-events: none;
+      filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.15));
+    }
+
     .card-theme-badge {
       position: absolute;
       bottom: -6px;
@@ -584,6 +599,6 @@ export class HomeComponent implements OnInit {
 
   getThemeEmoji(pet: PetProfile): string {
     const theme = this.themeService.getTheme(pet.theme);
-    return theme?.icon || '\u2728';
+    return theme?.icon || '✨';
   }
 }

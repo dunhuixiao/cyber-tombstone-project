@@ -85,8 +85,8 @@ export class PixelPetBorderComponent {
   @Input() species = '';
 
   get speciesClass(): string {
-    if (this.species.includes('\u72AC') || this.species.toLowerCase().includes('dog')) return 'dog';
-    if (this.species.includes('\u732B') || this.species.toLowerCase().includes('cat')) return 'cat';
+    if (this.species.includes('犬') || this.species.toLowerCase().includes('dog')) return 'dog';
+    if (this.species.includes('猫') || this.species.toLowerCase().includes('cat')) return 'cat';
     return 'dog'; // default
   }
 }

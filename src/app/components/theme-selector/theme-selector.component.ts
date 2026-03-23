@@ -7,9 +7,9 @@ import { ThemeId } from '../../models/pet.model';
   standalone: true,
   template: `
     <div class="theme-selector" [class.collapsed]="collapsed()">
-      <button class="theme-toggle" (click)="toggle()" [attr.aria-label]="collapsed() ? '\u5C55\u5F00\u4E3B\u9898\u8272' : '\u6536\u8D77\u4E3B\u9898\u8272'">
-        <span class="toggle-icon">\uD83C\uDFA8</span>
-        <span class="toggle-arrow" [class.rotate]="!collapsed()">\u25B8</span>
+      <button class="theme-toggle" (click)="toggle()" [attr.aria-label]="collapsed() ? '展开主题色' : '收起主题色'">
+        <span class="toggle-icon">🎨</span>
+        <span class="toggle-arrow" [class.rotate]="!collapsed()">▸</span>
       </button>
       <div class="theme-panel">
         <div class="theme-options">

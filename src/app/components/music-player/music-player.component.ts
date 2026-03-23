@@ -7,7 +7,7 @@ import { NgClass } from '@angular/common';
   imports: [NgClass],
   template: `
     <div class="music-player" [ngClass]="{ 'is-playing': isPlaying() }">
-      <button class="music-btn" (click)="togglePlay()" [attr.aria-label]="isPlaying() ? '\u6682\u505C\u97F3\u4E50' : '\u64AD\u653E\u97F3\u4E50'">
+      <button class="music-btn" (click)="togglePlay()" [attr.aria-label]="isPlaying() ? '暂停音乐' : '播放音乐'">
         <div class="music-visualizer">
           <span class="bar" [ngClass]="{ 'animate': isPlaying() }"></span>
           <span class="bar" [ngClass]="{ 'animate': isPlaying() }" style="animation-delay: 0.2s"></span>
@@ -16,8 +16,8 @@ import { NgClass } from '@angular/common';
         </div>
       </button>
       <div class="music-info" [ngClass]="{ 'show': showInfo() }">
-        <span class="music-title">\uD83C\uDFB5 {{ musicTitle() }}</span>
-        <span class="music-status">{{ isPlaying() ? '\u6B63\u5728\u64AD\u653E' : '\u5DF2\u6682\u505C' }}</span>
+        <span class="music-title">🎵 {{ musicTitle() }}</span>
+        <span class="music-status">{{ isPlaying() ? '正在播放' : '已暂停' }}</span>
       </div>
     </div>
   `,
@@ -121,7 +121,7 @@ export class MusicPlayerComponent implements OnDestroy {
 
   isPlaying = signal(false);
   showInfo = signal(false);
-  musicTitle = signal('\u7EAA\u5FF5\u66F2');
+  musicTitle = signal('纪念曲');
 
   private audio: HTMLAudioElement | null = null;
   private hideTimeout: ReturnType<typeof setTimeout> | null = null;
