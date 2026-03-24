@@ -105,14 +105,14 @@ ImageGen:
 
 将生成的图片移动到目标目录：
 ```bash
-mv [avatar图片路径] public/images/pets/[宠物名]/pixel/avatar.png
-mv [running图片路径] public/images/pets/[宠物名]/pixel/running.png
-mv [sprite图片路径] public/images/pets/[宠物名]/pixel/sprite.png
+mv [avatar图片路径] src/app/pets/[宠物名]/pixel/avatar.png
+mv [running图片路径] src/app/pets/[宠物名]/pixel/running.png
+mv [sprite图片路径] src/app/pets/[宠物名]/pixel/sprite.png
 ```
 
 ## 参考示例
 
-参考目录：`public/images/pets/xiaoxue/pixel/` 和 `public/images/pets/wangcai/pixel/`
+参考目录：`src/app/pets/xiaoxue/pixel/` 和 `src/app/pets/wangcai/pixel/`
 
 **xiaoxue（小白猫）示例：**
 - avatar.png：正面坐姿，白毛蓝眼，粉色鼻子，渐变背景

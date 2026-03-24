@@ -47,6 +47,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*.{png,jpg,jpeg,gif,webp,wav,mp3,mp4}",
+                "input": "src/app/pets",
+                "output": "images/pets"
               }
             ],
             "styles": ["src/styles.css"]
