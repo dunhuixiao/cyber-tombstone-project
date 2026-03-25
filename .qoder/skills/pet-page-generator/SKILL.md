@@ -25,10 +25,11 @@ description: 基于宠物描述信息和petinfo，生成宠物模块的前端页
 - 不修改宠物的 `pet-info.ts` 本身
 - 不修改任何组件或页面代码
 - 如果宠物已经注册（已在 index.ts 和 service 中），需要告知用户并跳过
+- 字段类型的权威定义在 `src/app/models/pet.model.ts`，如需验证字段名或类型请读取此文件
 
 ## 输入要求
 
-用户提供宠物 ID（即 `src/app/pets/[petId]/` 目录名），例如 `doudou`、`wangcai`、`xiaoxue`。
+用户提供宠物 ID，即 `src/app/pets/` 下的子目录名。
 
 如果用户未指定宠物 ID，则：
 1. 使用 Glob 工具扫描 `src/app/pets/*/pet-info.ts` 获取所有宠物目录
@@ -88,42 +89,21 @@ export { DOUDOU_PROFILE } from './doudou/pet-info';
 
 ### 步骤 4：更新 src/app/services/pet-data.service.ts
 
-使用 Edit 工具修改 `src/app/services/pet-data.service.ts`，需要修改两处：
+首先使用 Read 工具读取 `src/app/services/pet-data.service.ts` 的当前内容，了解现有结构和已注册的宠物列表。
+
+使用 Edit 工具修改该文件，需要修改两处：
 
 #### 4a. 添加 import 语句
 
-在现有的 import 行中，添加新宠物的导入。
+找到 `from '../pets'` 的 import 行，在已有 import 列表的**末尾**追加 `[PETID大写]_PROFILE`，保留所有现有的 import 不变。
 
-**当前格式示例：**
-```typescript
-import { WANGCAI_PROFILE, XIAOXUE_PROFILE } from '../pets';
-```
-
-**修改为（添加新宠物）：**
-```typescript
-import { WANGCAI_PROFILE, XIAOXUE_PROFILE, DOUDOU_PROFILE } from '../pets';
-```
+**操作方式：** 使用 Edit 工具，将当前 import 行中最后一个 PROFILE 后的 `}` 替换为 `, [PETID大写]_PROFILE }`。
 
 #### 4b. 添加到 pets 数组
 
-在 `pets` 数组中添加新宠物的 profile。
+找到 `pets: PetProfile[]` 数组，在数组的**最后一个元素**后追加 `[PETID大写]_PROFILE`。
 
-**当前格式示例：**
-```typescript
-private readonly pets: PetProfile[] = [
-  WANGCAI_PROFILE,
-  XIAOXUE_PROFILE
-];
-```
-
-**修改为（添加新宠物）：**
-```typescript
-private readonly pets: PetProfile[] = [
-  WANGCAI_PROFILE,
-  XIAOXUE_PROFILE,
-  DOUDOU_PROFILE
-];
-```
+**操作方式：** 使用 Edit 工具，在数组最后一个 PROFILE 条目后添加逗号换行和新条目，保持缩进与现有条目一致。
 
 ### 步骤 5：验证结果
 
@@ -145,12 +125,11 @@ private readonly pets: PetProfile[] = [
 
 | 宠物 ID | 导出常量名 | 目录路径 |
 |---------|-----------|---------|
-| wangcai | WANGCAI_PROFILE | src/app/pets/wangcai/ |
-| xiaoxue | XIAOXUE_PROFILE | src/app/pets/xiaoxue/ |
-| doudou | DOUDOU_PROFILE | src/app/pets/doudou/ |
 | [petId] | [PETID大写]_PROFILE | src/app/pets/[petId]/ |
 
 **常量名生成规则：** 将宠物 ID 转为全大写，后缀 `_PROFILE`。
+
+**查看当前已注册宠物：** 使用 `Glob src/app/pets/*/pet-info.ts` 获取所有宠物目录列表。
 
 ## 参考示例
 
@@ -160,39 +139,14 @@ private readonly pets: PetProfile[] = [
 
 **步骤 2** - 检查 index.ts 和 service，确认 doudou 未注册。
 
-**步骤 3** - 修改 `src/app/pets/index.ts`：
+**步骤 3** - 修改 `src/app/pets/index.ts`，在文件末尾追加一行：
 ```typescript
-export { WANGCAI_PROFILE } from './wangcai/pet-info';
-export { XIAOXUE_PROFILE } from './xiaoxue/pet-info';
 export { DOUDOU_PROFILE } from './doudou/pet-info';
 ```
 
-**步骤 4** - 修改 `src/app/services/pet-data.service.ts`：
-```typescript
-import { Injectable } from '@angular/core';
-import { PetProfile } from '../models/pet.model';
-import { WANGCAI_PROFILE, XIAOXUE_PROFILE, DOUDOU_PROFILE } from '../pets';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class PetDataService {
-
-  private readonly pets: PetProfile[] = [
-    WANGCAI_PROFILE,
-    XIAOXUE_PROFILE,
-    DOUDOU_PROFILE
-  ];
-
-  getAllPets(): PetProfile[] {
-    return this.pets;
-  }
-
-  getPetById(id: string): PetProfile | undefined {
-    return this.pets.find(p => p.id === id);
-  }
-}
-```
+**步骤 4** - 读取 `src/app/services/pet-data.service.ts` 当前内容，执行两处 delta 修改：
+- 在 `from '../pets'` 的 import 行中，`}` 前追加 `, DOUDOU_PROFILE`
+- 在 `pets` 数组的最后一个元素后追加 `DOUDOU_PROFILE`
 
 **步骤 5** - 验证编译通过，向用户报告：
 > 已成功注册宠物「豆豆」(doudou)！
