@@ -173,7 +173,7 @@ await download.saveAs('绝对路径/src/app/pets/[宠物名]/pixel/[文件名].p
 
 ## 参考示例
 
-参考文档：`template/pixel-art-examples.md`（位于本 skill 目录下），记录了所有已生成宠物的像素图片描述。
+参考文档：`references/pixel-art-examples.md`（位于本 skill 目录下），记录了所有已生成宠物的像素图片描述。
 
 生成新宠物图片时，请先用 Read 工具查看参考文档和对应目录下的实际图片，确保风格一致。
 
