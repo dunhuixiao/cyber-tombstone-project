@@ -6,11 +6,10 @@
 
 ## 主要操作步骤
 
-提供名称、照片、生卒年月等信息，直接在 agent 内调用
+提供名称、照片、生卒年月等信息，直接在 agent 内调用，等待生成完毕后启动站点。
 ``` 
 .qoder/skills/pet-onboarding/SKILL.md
 ```
-等待生成完毕后启动站点。
 
 也可以直接使用，不提供信息，会随机生成相关明细。
 
@@ -58,3 +57,7 @@ src/
 ## 部署
 
 使用 GitHub Actions 自动部署到 GitHub Pages。
+
+## 开源协议
+
+本项目基于 [MIT License](./LICENSE) 开源，你可以自由使用、修改和分发。
