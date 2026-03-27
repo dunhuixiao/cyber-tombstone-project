@@ -17,6 +17,23 @@
 
 可能不同的 agent 图片生成工具会调用失败，需要修改 SKILL 修改为支持的内置生成方案。
 
+其他 agent，均可单独执行：
+
+基于宠物信息生成前端静态页面
+```
+.qoder/skills/pet-page-generator/SKILL.md
+```
+
+基于现实照片生成像素照
+```
+.qoder/skills/pet-pixel-art-generator/SKILL.md
+```
+
+基于宠物信息生成庙号谥号信息
+```
+.qoder/skills/pet-title-generator/SKILL.md
+```
+
 ## 没人在意的技术栈
 
 - **框架**: [Angular](https://angular.io/) 21.2.0
