@@ -6,6 +6,8 @@
 
 可以自行fork项目托管到自己的 GitHub Pages。
 
+[赛博墓碑](https://dunhuixiao.github.io/cyber-tombstone-project/)
+
 ## 主要操作步骤
 
 提供名称、照片、生卒年月等信息，直接在 agent 内调用，等待生成完毕后启动站点。
